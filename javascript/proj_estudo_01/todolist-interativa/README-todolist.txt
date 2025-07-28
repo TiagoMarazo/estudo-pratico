@@ -1,0 +1,2 @@
+Projeto: Gerenciador de Lista de Tarefas Interativo com Local Storage e Arrays
+Atenção: Cada pasta dentro desse projeto é uma galho de estudos sobre alguma tecnologia que foi aprendida e/ou exercitada durante o projeto para agregar ou projeto principal.

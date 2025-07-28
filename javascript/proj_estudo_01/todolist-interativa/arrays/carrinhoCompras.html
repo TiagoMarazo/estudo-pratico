@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrays 3 Exercícios</title>
+</head>
+<body>
+    <script>
+        let carrinho = [
+            {produto: "Arroz",quantidade: 2, precoUnitario: 12.75},
+            {produto: "Feijão",quantidade: 1, precoUnitario: 8.99},
+            {produto: "Café",quantidade: 3, precoUnitario: 32.98}
+        ]
+        //função de exibição do array.
+        function exibirArray (array){
+            array.forEach((element, index) => {
+                console.log(`${index + 1}. ${element.quantidade}x ${element.produto} - Total: R$ ${element.precoUnitario*element.quantidade}.`)
+            });
+        }
+        exibirArray(carrinho)
+        //função de cálculo do total do carrinho.
+        function calculo (array){ 
+            let valorTotal = array.reduce((total, item) => {
+            let itemTotal = item.quantidade*item.precoUnitario
+            // console.log(itemTotal + total) --> Depuração dos valores somados.
+            return itemTotal + total
+        }, 0)
+        console.log(`Valor Final do Carrinho: R$ ${valorTotal}.`)
+        }
+        calculo(carrinho)
+        //retirando o item 2 do array e testando a função calculo(array).
+        carrinho.splice(2,1)
+        exibirArray(carrinho)
+        calculo(carrinho)
+    </script>
+</body>
+</html>

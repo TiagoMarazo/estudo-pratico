@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalogo de Livros</title>
+</head>
+<body>
+    <script>
+        let catalogo = [
+            { nome: 'Código Limpo', autor: 'Robert C. Martins', lido: true },
+            { nome: 'Entendendo Algoritmos', autor: 'Aditya Y. Bhargava', lido: false },
+            { nome: 'O Programador Pragmático', autor: 'Andrew Hunt e David Thomas', lido: false}
+        ]
+        function exibir () {
+            catalogo.forEach(function(livro,index){
+            //estrutura ternária para mostrar se o livro foi lido: varBoleano? "se true" : "se false" .
+                console.log(`${index + 1}. ${livro.nome} - ${livro.autor}: ${livro.lido? "Lido!" : "Não Lido!"}`) 
+            })}
+
+        //recebe nome e autor, cria um objeto e adiciona na Array.
+        function adicionarLivro (nome,autor){
+            let novoLivro = {
+                nome: nome,
+                autor: autor,
+                lido: false
+            }
+            catalogo.push(novoLivro)
+        }
+        // muda o valor da chave "lido" indice 1 para true.   
+        catalogo[1].lido = true
+        console.log(catalogo)
+
+        // remove 1 item a partir do indice 1
+        catalogo.splice(1,1)
+        console.log(catalogo)
+        exibir()
+
+        // testando a função adicionarLivro()
+        adicionarLivro("Livro Titulo", "Nome Autor")
+        exibir()
+
+       // exibir apenas os livros lidos.
+        function listarLidos () {
+            catalogo.forEach(function(livro,index) {
+                if(livro.lido){
+                    console.log(`${index + 1}. ${livro.nome} - ${livro.autor}: Lido!`)
+                }
+            })
+        }
+        listarLidos ()
+        
+        //Sugestão: isolar a função ternária -> marcarComoLido() ajuda na expansão e manutenibilidade do projeto.
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Alunos</title>
+</head>
+<body>
+    <script>
+        let alunos = [
+            { nome: 'Tiago', idade: 25, curso: 'Análise de Sistemas' },
+            { nome: 'Marcelo', idade: 24, curso: 'Engenharia Civil' },
+            { nome: 'João', idade: 23, curso: 'Engenharia Mecânica'},
+            { nome: 'Pedro', idade: 20, curso: 'Letras'}
+        ]
+
+        // função coringa para exibir variações da Array alunos.
+        function exibir(array){
+            array.forEach(function(item, index){
+            console.log(`${index + 1}. Aluno: ${item.nome}, ${item.idade} Anos. Cursando: ${item.curso};`)
+        })
+
+        }
+        //substituindo o curso de João.
+        alunos[2].curso = "Física Quântica"
+        exibir(alunos)
+
+        // criando uma nova Array c/ maiores de 21 anos através do método .filter() .
+       let maior21 = alunos.filter(function(aluno){
+            return aluno.idade > 21
+        })
+        console.log('Maiores de 21 Anos:')
+        exibir(maior21)
+
+    </script>
+</body>
+</html>

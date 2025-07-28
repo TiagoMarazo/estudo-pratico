@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Tarefas</title>
+    <style>
+        .done{
+        color: grey;
+        text-decoration: line-through;   
+        }
+    </style>
+</head>
+<body>
+    <h1>Gerenciador de Tarefas c/ Array</h1>
+    <input type="text" id="nomeTarefa">
+    <p id="erro"></p>
+    <button id="inserir">Inserir</button>
+    <ul id="lista">
+
+    </ul>
+    <script>
+        //array que receberá todos as tarefas como objetos.
+        let tarefas = []
+        
+        let addBt = document.querySelector("button#inserir")
+        //Paragrafo para gerar saída de erro.
+        let erro = document.querySelector("p#erro")
+        //adiciona tarefa como objeto na array e ativa a renderização da lista.
+        function addToArray () {
+            let nomeTarefa = document.querySelector('input#nomeTarefa').value
+            //estrutura condicional para evitar campo em branco, retorna mensagem de erro e cancela a função.
+            if (nomeTarefa == ""){
+                erro.textContent = "Erro: Insira o nome da tarefa."
+                return
+            }
+            //insere a tarefa como objeto na array.
+            tarefas.push({nome: nomeTarefa, feita: false})
+            //limpa o campo do input para receber novo valor.
+            document.querySelector('input#nomeTarefa').value = ""
+            //limpa o campo de erro.
+            erro.textContent = ""
+            //atualiza renderização da lista.
+            renderArray()
+        }
+        //renderiza a lista a partir do array "tarefas".
+        function renderArray (){
+            let lista = document.querySelector("ul#lista")
+            //limpa a visualização da lista para atualizar.
+            lista.innerHTML = ""
+            //percorrendo a array e gerando a visualização da lista de tarefas.
+            tarefas.forEach(function(tarefa,index){
+                let item = document.createElement("li")
+                //criando checkbox e adicionando função nela.
+                let check = document.createElement("input")
+                check.type = "checkbox"
+                //imprime o checkbox com o valor anterior guardado no array.
+                check.checked = tarefa.feita
+                //atualiza o valor de check.checked para a nova alteração e guarda no array.
+                check.addEventListener("change",function(){
+                    tarefa.feita = check.checked
+                    renderArray()
+                })
+                //cria o texto que é o nome da tarefa.
+                let texto = document.createElement("span")
+                texto.textContent = tarefa.nome
+                //verifica se a tarefa esta marcada como feita: true e adiciona a classe "done" para tarefas feitas.
+                if (tarefa.feita){
+                    texto.classList.add("done")
+                }
+                //cria o botão de delete da tarefa e adiciona função nele.
+                let delBt = document.createElement("button")
+                delBt.textContent = "Remover"
+                //retira a tarefa do array e atualiza a visualização da lista.
+                delBt.addEventListener("click", function(){
+                    tarefas.splice(index,1)
+                    renderArray()
+                })
+                //adiciona os elementos criados ao corpo do html.
+                texto.appendChild(check)
+                item.appendChild(texto)
+                item.appendChild(delBt)
+                lista.appendChild(item)
+            })
+        }
+        //adiciona a função addToArray() no botão de "Inserir".
+        addBt.addEventListener("click",addToArray)
+    </script>
+</body>
+</html>

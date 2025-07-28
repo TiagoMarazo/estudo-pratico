@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador com Memória</title>
+</head>
+<body>
+    <h1>Contador com Memória Local</h1>
+    <h2>Desafio de Local Storage:</h2>
+    <span>Contador: </span><span id="numCont"></span>
+    <button onclick="maisUm()">Adicionar +1</button>
+    <button onclick="reset()">Resetar Contagem</button>
+    <script>
+        contagem = JSON.parse(localStorage.getItem("cont"))
+        const saida = document.querySelector('span#numCont')
+
+        if (contagem == null){
+            saida.innerHTML = 0
+        }else{
+            saida.innerHTML = contagem
+        }
+        
+        function maisUm(){
+            contagem ++
+            saida.innerText = contagem
+            localStorage.setItem("cont", JSON.stringify(contagem))
+        }
+        function reset(){
+            localStorage.clear()
+            contagem = 0
+            saida.innerText = contagem
+        }
+        
+    </script>
+</body>
+</html>

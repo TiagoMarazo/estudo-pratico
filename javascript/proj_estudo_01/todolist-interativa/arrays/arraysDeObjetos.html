@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array de Objetos</title>
+</head>
+<body>
+    <script>
+        let tarefas = [ //cria uma array de objetos.
+            { nome: "Lavar Roupas", feita: false }, // as '{}' marcam o objeto, "nome:" é chamado de chave e "Lavar Roupas" é chamado de valor.
+            { nome: "Secar Louças", feita: false },
+            { nome: "Estudar JS", feita: false }
+        ]
+        tarefas.forEach(function(tarefa){ // percorrendo a array de objetos (ou uma array simples).
+            console.log(tarefa)
+        })
+        tarefas.push({ nome: "Cozinhar", feita: false }) // inserindo um objeto novo na array.
+        console.log (tarefas)
+        tarefas[1].feita = true // mundando o status da chave "feita" para "true".
+        tarefas.splice(2,1) // removendo 1 item a partir do indice [2].
+        
+        console.log(tarefas)
+    </script>
+</body>
+</html>

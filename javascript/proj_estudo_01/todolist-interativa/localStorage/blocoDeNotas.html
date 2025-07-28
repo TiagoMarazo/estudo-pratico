@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloco de Notas</title>
+    <style>
+        #erro{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bloco de Nota com Memória Local</h1>
+    <p id="erro"></p>
+    <textarea id="entrada"></textarea>
+    <button id="save">Salvar</button>
+    <button id="clear">Apagar</button>
+    <p>Caracteres: <span id="cCont">0</span> </p>
+    <p>Última edição: <span id="ultEdit"></span></p>
+    <script>
+        let cCont = document.querySelector("span#cCont")
+        let bloco = document.querySelector("textarea#entrada")
+        let ultEdit = document.querySelector("span#ultEdit")
+        let erro = document.querySelector("p#erro")
+        // restaurando dados salvos:
+        let blocoSalvo = localStorage.getItem("bloco")
+        bloco.value = blocoSalvo
+        cCont.innerText = bloco.value.length
+        let ultEditSalvo = localStorage.getItem("registro")
+        ultEdit.textContent = ultEditSalvo
+        //contagem dos caracteres
+        bloco.addEventListener ("input",() =>{
+            let entrada = bloco.value
+            cCont.innerText = entrada.length
+            console.log("Atualizando contagem..")
+        })
+        //botão de salvamento dos dados
+        let saveBut = document.querySelector("button#save")
+        saveBut.addEventListener("click", () =>{
+            erro.textContent = ""
+            //salvando texto do bloco
+            let entrada = bloco.value
+            //impedindo entradas em branco, gerando ERRO
+            if (entrada.trim() === ""){
+                erro.textContent = "Você não pode salvar um texto em branco... Insira algo!"
+                return
+            }
+            localStorage.setItem("bloco", entrada)
+
+            //salvando registro de data e hora da ultima edição salva
+            let ultEditReg = new Date().toLocaleString("pt-br")
+            localStorage.setItem("registro", ultEditReg)
+            ultEdit.textContent = ultEditReg
+
+            //salvando dados para contagem de tempo de salvamento dos dados
+            let fim = Date.now() + 10*1000
+            localStorage.setItem("tempoLimite", fim)
+
+            console.log("Salvando bloco..")
+        })
+
+        //verificando a hora e apagando o bloco
+        let contagem = setInterval (() => {
+            let agora = Date.now()
+            let tempoLimite = localStorage.getItem("tempoLimite")
+            let tempoRestante = tempoLimite - agora
+            if (tempoRestante < 0){
+                console.log("Tempo excedido, registros apagados...")
+                clearInterval(contagem)
+            }             
+        },1000)
+
+
+        //botão p limpar registros
+        let clearBut = document.querySelector("button#clear")
+        clearBut.addEventListener("click", () =>{
+            localStorage.clear()
+            bloco.value = ""
+            ultEdit.textContent = "Nenhuma Edição Salva."
+            erro.textContent = ""
+            cCont.textContent = 0
+        })
+
+
+
+
+    </script>
+</body>
+</html>

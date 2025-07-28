@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Tarefas do 0</title>
+    <style>
+        .done{
+            color:gray;
+            text-decoration: line-through;
+        }
+        .erro{
+            color:red;
+            font-style: bold;
+        }
+    </style>
+</head>
+<body>
+   <h1>Gerenciador c/ Array e Local Storage</h1>
+   <p id="erroAlert" class="erro"></p>
+   <input type="text" id="nomeTarefa" placeholder="Insira sua tarefa...">
+   <button id="adicionar">Adicionar</button>
+   <button id="limpar">Excluir Tudo</button>
+   <ul id="listaPrincipal"></ul>
+   <script>
+        let arrayTarefas = []
+        arrayTarefas = JSON.parse(localStorage.getItem("tarefasSalvas")) || []
+        let addBut = document.querySelector("button#adicionar")
+        let listaPrincipal = document.querySelector("ul#listaPrincipal")
+        let erroAlert = document.querySelector("p#erroAlert")
+        mostrarLista()
+        addBut.addEventListener("click",function (){
+            erroAlert.textContent = ""
+            let nomeTarefa = document.querySelector("input#nomeTarefa").value
+            if (nomeTarefa.trim() === "") {
+                erroAlert.textContent = "ERRO: Insira uma descrição para a tarefa."
+                return
+            }
+            arrayTarefas.push({nome: nomeTarefa, check: false})
+            localStorage.setItem("tarefasSalvas", JSON.stringify(arrayTarefas))
+            document.querySelector("input#nomeTarefa").value = ""
+            mostrarLista()
+        })
+
+        function mostrarLista (){
+            listaPrincipal.innerHTML = ""
+            arrayTarefas.forEach((tarefa,index) => {
+                let listItem = document.createElement("li")
+                let nomeTarefa = document.createElement("span")
+                nomeTarefa.innerText = tarefa.nome
+                let feito = document.createElement("input")
+                feito.type = "checkbox"
+                feito.checked = tarefa.check
+                if (feito.checked){
+                        nomeTarefa.classList.add("done")
+                    }else{
+                        nomeTarefa.classList.remove("done")
+                    }
+                feito.addEventListener("change", () =>{
+                    tarefa.check = feito.checked
+                    localStorage.setItem("tarefasSalvas", JSON.stringify(arrayTarefas))
+                    mostrarLista()
+                })
+                let delBut = document.createElement("button")
+                delBut.innerText = "Deletar"
+                delBut.addEventListener("click", () =>{
+                    arrayTarefas.splice(index,1)
+                    localStorage.setItem("tarefasSalvas", JSON.stringify(arrayTarefas))
+                    mostrarLista()
+                })
+                listItem.appendChild(nomeTarefa)
+                listItem.appendChild(feito)
+                listItem.appendChild(delBut)
+                listaPrincipal.appendChild(listItem)
+            });
+        }
+
+        const clearBut = document.querySelector("button#limpar")
+        clearBut.addEventListener("click", () => {
+            localStorage.clear()
+            arrayTarefas = []
+            mostrarLista()
+        })
+        
+   </script>
+</body>
+</html>

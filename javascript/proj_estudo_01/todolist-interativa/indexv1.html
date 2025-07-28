@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Tarefas v1</title>
+    <style>
+        .done{
+            text-decoration: line-through;
+            color: grey;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gerenciador de Tarefas</h1>
+    <input type="text" id="entrada" placeholder="Insira suas Tarefas...">
+    <input type="button" id="inserir" value="Adicionar Tarefa" onclick="insertList()">
+    <ul id="lista">
+    </ul>
+    <script>
+        let list = document.querySelector("ul#lista")
+        function insertList(){ // inserir item a lista.
+            console.log ("Função insertList Rodando...")
+            let add = document.querySelector("input#entrada").value
+            let novoItem = document.createElement("li")
+            let checkbox = document.createElement("input")
+            checkbox.type = "checkbox"
+            checkbox.addEventListener("change",doneItem)
+            let texto = document.createElement("span")
+            texto.textContent = add
+            let delButton = document.createElement("button")
+            delButton.textContent = "Remover"
+            delButton.addEventListener("click",delItem)
+
+            novoItem.appendChild(checkbox)
+            novoItem.appendChild(texto)
+            novoItem.appendChild(delButton)
+            list.appendChild(novoItem)
+
+            document.querySelector("input#entrada").value = ""
+        }
+        function doneItem(event){ //puxa o evento que o acionou direto do navegador.
+            console.log ("Um item foi marcado. Função doneItem Rodando...")
+            checkbox = event.target //variavel checkbox recebe o target que acionou o evento (no caso o elemento input).
+            texto = checkbox.nextElementSibling
+
+            if (checkbox.checked){
+                texto.classList.add("done")
+            }else{
+                texto.classList.remove("done")
+            }    
+        }
+        function delItem (event){
+            console.log("Função delItem Rodando...")
+            delButton = event.target
+            item = delButton.parentElement // variavel item busca o elemento pai da variavel delButton.
+            item.remove() // remove o elemento que a varivel item faz é atribuida.
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrays 2 Exercícios</title>
+</head>
+<body>
+    <script>
+        let curvasDeNivel = [1600,2600,3600]
+        // percorrendo a array
+        curvasDeNivel.forEach(function(nivel){
+            console.log(nivel)
+        })
+        // adicionando a curva 4600 no final
+        curvasDeNivel.push(4600)
+        console.log(curvasDeNivel)
+        // adicionando a curva 600 no inicio
+        curvasDeNivel.unshift(600)
+        console.log(curvasDeNivel)
+        // removendo a curva 4600 do final
+        curvasDeNivel.pop()
+        console.log(curvasDeNivel)
+        // removendo a curva 600 do inicio
+        curvasDeNivel.shift()
+        console.log(curvasDeNivel)
+        // substituindo a curva de 2600 por 2400
+        curvasDeNivel[1] = 2400
+        console.log(curvasDeNivel)
+        // verificando se a curva 2600 está na lista
+        console.log(`Possui a curva 2600: ${curvasDeNivel.includes(2600)}`)
+        
+        console.log(`O índice da curva 2400: ${curvasDeNivel.indexOf(2400)}`)
+
+        curvasDeNivel.splice(2,1)
+        console.log(curvasDeNivel)
+
+        let texto = curvasDeNivel.join(" e ")
+        console.log(texto)
+
+        console.log(`Quantidade de Itens no Array: ${curvasDeNivel.length}`)
+
+    </script>
+</body>
+</html>
