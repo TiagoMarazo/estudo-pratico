@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timers 1 - Mensagem</title>
+</head>
+<body>
+    <h1>Funções de Temporização 1</h1>
+    <button id="msg">Exibir</button>
+    <p id="saida"></p>
+    <script>
+        let exibir = document.querySelector("button#msg")
+        let saida = document.querySelector("p#saida")
+        exibir.addEventListener("click",() => {
+            exibir.disable = true   //desativa o click no botão
+            saida.textContent = "Aguarde..."
+            setTimeout(()=>{
+                saida.textContent = "Olá Mundo!"
+                exibir.disable = false  //reativa o click no botão
+            },5000)
+        })
+    </script>
+</body>
+</html>
