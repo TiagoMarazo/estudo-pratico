@@ -19,6 +19,7 @@
     <p>Caracteres: <span id="cCont">0</span> </p>
     <p>Última edição: <span id="ultEdit"></span></p>
     <script>
+        autoDel()
         let cCont = document.querySelector("span#cCont")
         let bloco = document.querySelector("textarea#entrada")
         let ultEdit = document.querySelector("span#ultEdit")
@@ -64,12 +65,12 @@
         //verificando a hora e apagando o bloco
         function autoDel (){
             let tempoLimite = JSON.parse(localStorage.getItem("tempoLimite")) || "" // verifica o momento de delete salvo em localstorage
-            if(tempoLimite !== ""){
+            if(tempoLimite !== null){
                 var contagem = setInterval (() => {     //intervalo com escopo global "var"
                 let agora = Date.now()      //verifica o momento presente
                 if (agora > tempoLimite){   // se momento presente for maior que o momento de delete: deletar os dados
                     console.log("Tempo excedido, registros apagados...")
-                    localStorage.clear()
+                    clear()
                     clearInterval(contagem) // atendido o if finalizar intervalo
                 }             
                 },1000)
@@ -80,15 +81,15 @@
 
         //botão p limpar registros
         let clearBut = document.querySelector("button#clear")
-        clearBut.addEventListener("click", () =>{
+        function clear() {
             localStorage.clear() //limpando localstorage
             bloco.value = ""    //limpando texto do bloco
             ultEdit.textContent = "Nenhuma Edição Salva."   //limpando registro de ultima edição
             erro.textContent = ""   // retirando msgs erros
             cCont.textContent = 0      //zerando contagem de caracteres
-            autoDel()     // parando o intevalo
-        })
-
+        }
+        //ao clicar: limpa áreas e para o intervalo
+        clearBut.addEventListener("click", clear)
     </script>
 </body>
 </html>
