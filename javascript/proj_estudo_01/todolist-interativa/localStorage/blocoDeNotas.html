@@ -69,6 +69,7 @@
                 let agora = Date.now()      //verifica o momento presente
                 if (agora > tempoLimite){   // se momento presente for maior que o momento de delete: deletar os dados
                     console.log("Tempo excedido, registros apagados...")
+                    localStorage.clear()
                     clearInterval(contagem) // atendido o if finalizar intervalo
                 }             
                 },1000)
