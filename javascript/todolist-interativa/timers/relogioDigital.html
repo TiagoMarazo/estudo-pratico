@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timers 2 - Relógio</title>
+</head>
+<body>
+    <h1>Funções de Temporização 2</h1>
+    <h2 id="relogio"></h2>
+    <script>
+        let relogio = document.querySelector("h2#relogio")
+        let tempo = setInterval(() => {
+            let data = new Date
+            let hora = data.getHours()
+            let minutos = data.getMinutes()
+            let segundos = data.getSeconds()
+            relogio.textContent = `${hora}:${minutos}:${segundos}`
+        }, 1000);
+    </script>
+</body>
+</html>
